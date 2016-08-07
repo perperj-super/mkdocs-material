@@ -24,7 +24,7 @@
  * Dependencies
  * ------------------------------------------------------------------------- */
 
-@import "bourbon";
+@import "modular-scale";
 @import "quantum-colors";
 @import "quantum-shadows";
 
@@ -32,18 +32,24 @@
  * Application
  * ------------------------------------------------------------------------- */
 
-@import "reset";
-@import "palette";
-@import "highlight";
+@import "helpers/break";
+@import "helpers/px2em";
 
-@import "fonts/icon";
+@import "config";
 
-@import "mixins/break";
+@import "base/icons";
+@import "base/reset";
+@import "base/typeset";
 
-@import "modules/base";
-@import "modules/drawer";
-@import "modules/article";
-@import "modules/search";
+@import "layout/base";
+@import "layout/content";
+@import "layout/header";
+@import "layout/footer";
+@import "layout/nav";
+@import "layout/sidebar";
 
-@import "print";
+@import "extensions/admonition";
+@import "extensions/codehilite";
+@import "extensions/permalinks";
+
 @import "shame";
