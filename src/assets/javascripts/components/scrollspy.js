@@ -42,7 +42,7 @@ class ScrollSpy {
     this.offset_ = window.pageYOffset;
 
     /* Event listener */
-    this.handler_ = (ev) => {
+    this.handler_ = ev => {
       this.update(ev);
     };
   }
@@ -57,7 +57,7 @@ class ScrollSpy {
     /* Scroll direction is down */
     if (this.offset_ <= window.pageYOffset) {
       for (let i = this.index_ + 1; i < this.el_.length; i++) {
-        let anchor = document.querySelector(this.el_[i].hash);
+        let anchor = document.querySelector(this.el_[i].hash);                  // TODO: improve performance by caching
         if (anchor.offsetTop <= window.pageYOffset) {
           if (i > 0)
             this.el_[i - 1].classList.add('md-nav__link--marked');
@@ -89,7 +89,7 @@ class ScrollSpy {
    * Reset state of sidebar
    */
   reset() {
-    [].forEach.call(this.el_, (el) => {
+    [].forEach.call(this.el_, el => {
       el.classList.remove('md-nav__link--marked');
     });
   }
@@ -98,7 +98,7 @@ class ScrollSpy {
    * Register listener for all relevant events
    */
   listen() {
-    ['scroll', 'resize', 'orientationchange'].forEach((name) => {
+    ['scroll', 'resize', 'orientationchange'].forEach(name => {
       window.addEventListener(name, this.handler_, false);
     });
 
@@ -110,7 +110,7 @@ class ScrollSpy {
    * Unregister listener for all relevant events
    */
   unlisten() {
-    ['scroll', 'resize', 'orientationchange'].forEach((name) => {
+    ['scroll', 'resize', 'orientationchange'].forEach(name => {
       window.removeEventListener(name, this.handler_, false);
     });
 
