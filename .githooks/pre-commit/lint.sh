@@ -20,7 +20,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-# Checking if all changes are added to the index
+# Check, if all changes are added to the index
 CWD_CLEAN="$(git diff-index HEAD --)"
 
 # This variables stores the state of the stash.
