@@ -49,7 +49,7 @@ fi
 
 # Run the check and print indicator
 echo "Hook[pre-commit]: Running linter..."
-STD_OUT=$(npm run pre-commit --silent)
+STD_OUT=$(npm run lint --silent)
 
 # Grab exit code of check
 HAD_ERROR=$?
