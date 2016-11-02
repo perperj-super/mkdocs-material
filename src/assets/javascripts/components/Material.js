@@ -20,54 +20,56 @@
  * IN THE SOFTWARE.
  */
 
+import Nav from "./Material/Nav"
+import Search from "./Material/Search"
+import Listener from "./Material/Listener"
 import Sidebar from "./Material/Sidebar"
 
 /* ----------------------------------------------------------------------------
- * Material application
+ * Module
  * ------------------------------------------------------------------------- */
 
-export default
-class Material {
-
-  /**
-   * Constructor
-   *
-   * @constructor
-   */
-  // constructor() {
-  //
-  // }
-
-  /**
-   * @return {void}
-   */
-  initialize() {
-
-    // class AnchorMarker extends PageYOffsetListener
-    // class SidebarConstrainer extends PageYOffsetListener
-
-    // MatchMedia!?
-
-    const width = window.matchMedia("(min-width: 1200px)")
-
-    // separate function in application.js --> initSidebar()
-    const sidebar = new Sidebar.Position("[data-md-sidebar=primary]")
-    const handler = function() {
-      if (width.matches) {
-        sidebar.listen()
-      } else {
-        sidebar.unlisten()
-      }
-    }
-    handler() // check listen!
-
-    const toc = new Sidebar.Position("[data-md-sidebar=secondary]")
-    toc.listen()
-
-    window.addEventListener("resize", handler) // TODO: orientation change etc...
-
-    const marker =
-      new Sidebar.Marker("[data-md-sidebar=secondary] .md-nav__link")
-    marker.listen()
-  }
+export default {
+  Nav,
+  Search,
+  Listener,
+  Sidebar
 }
+
+/* ----------------------------------------------------------------------------
+ * Definition
+ * ------------------------------------------------------------------------- */
+
+// export default class Material {
+//
+
+//
+
+//
+//   static initializeSearch() {
+//
+//   }
+//
+//   /**
+//    * Initialize all components
+//    */
+//   static initialize() {
+//
+//     const search = new Search.Lock("#search", () => {
+//       document.getElementById("query").focus()
+//     })
+//     search.listen() // TODO when this is commented out, focusing the search somehow breaks things...
+//
+//     const searchx = document.getElementById("search")
+//     const initialize = () => {
+//       const foo = new Search.Index()
+//       console.log(foo)
+//
+//       searchx.removeEventListener("change", initialize)
+//     }
+//     searchx.addEventListener("change", initialize)
+//     console.log(searchx)
+//
+//     // TODO nav bar is blurry until 959px, when expanded...
+//   }
+// }
