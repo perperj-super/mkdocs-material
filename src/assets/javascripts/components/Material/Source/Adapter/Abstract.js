@@ -54,10 +54,11 @@ export default class Abstract {
       if (typeof cached !== "undefined") {
         resolve(cached)
 
-      /* If the data is not cached in a cookie, invoke fetch */
+      /* If the data is not cached in a cookie, invoke fetch and set
+         a cookie that automatically expires in 15 minutes */
       } else {
         this.fetch_().then(data => {
-          Cookies.set(".cache-source", data)
+          Cookies.set(".cache-source", data, { expires: 1 / 96 })
           resolve(data)
         })
       }
