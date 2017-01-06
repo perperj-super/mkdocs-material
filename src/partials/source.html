@@ -20,6 +20,8 @@
   IN THE SOFTWARE.
 -->
 
+{% import "partials/i18n.html" as i18n %}
+
 <!--
   Check whether the repository is hosted on one of the supported code hosting
   platforms (Github, Gitlab or Bitbucket) to show icon.
@@ -36,8 +38,8 @@
 {% endif %}
 
 <!-- Repository containing source -->
-<a href="{{ config.repo_url }}" title="Go to repository" class="md-source"
-    data-md-source="{{ repo_type }}">
+<a href="{{ config.repo_url }}" title="{{ i18n.t('source.link.title') }}"
+    class="md-source" data-md-source="{{ repo_type }}">
   {% if repo_type %}
     <div class="md-source__icon">
       <svg viewBox="0 0 24 24" width="24" height="24">
