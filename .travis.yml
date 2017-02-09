@@ -25,6 +25,7 @@ sudo: false
 node_js:
   - 5
   - 6
+  - 7
 
 # Build visual tests on Node.js 7
 matrix:
