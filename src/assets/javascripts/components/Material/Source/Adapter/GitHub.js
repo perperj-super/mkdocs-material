@@ -32,7 +32,7 @@ export default class GitHub extends Abstract {
    * Retrieve source information from GitHub
    *
    * @constructor
-   * @param {(string|HTMLElement)} el - Selector or HTML element
+   * @param {(string|HTMLAnchorElement)} el - Selector or HTML element
    */
   constructor(el) {
     super(el)
@@ -44,7 +44,7 @@ export default class GitHub extends Abstract {
   /**
    * Fetch relevant source information from GitHub
    *
-   * @return {function} Promise returning an array of facts
+   * @return {Promise<*>} Promise returning an array of facts
    */
   fetch_() {
     return fetch(this.base_)
