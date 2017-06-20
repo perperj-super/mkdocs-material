@@ -25,7 +25,6 @@ site_name: Example
 repo_name: squidfunk/mkdocs-material
 repo_url: https://github.com/squidfunk/mkdocs-material
 
-# Reference the original theme and the directory which contains the
-# overrides for the partials, i.e. the language.html.
+# Theme and overrides, i.e. language partial
 theme: material
 theme_dir: theme
