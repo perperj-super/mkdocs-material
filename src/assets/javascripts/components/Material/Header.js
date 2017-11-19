@@ -21,11 +21,13 @@
  */
 
 import Shadow from "./Header/Shadow"
+import Title from "./Header/Title"
 
 /* ----------------------------------------------------------------------------
  * Module
  * ------------------------------------------------------------------------- */
 
 export default {
-  Shadow
+  Shadow,
+  Title
 }
