@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, OperatorFunction } from "rxjs"
-import { filter, windowToggle } from "rxjs/operators"
+import { NEVER, Observable, OperatorFunction, pipe } from "rxjs"
+import { switchMap } from "rxjs/operators"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -47,18 +47,18 @@ export function toArray<
  * ------------------------------------------------------------------------- */
 
 /**
- * Toggle emission from a source observable
+ * Switch to another observable, if toggle is active
  *
  * @template T - Observable value type
  *
- * @param toggle$ - Toggle observable
+ * @param project - Project function
  *
- * @return Observable of source observables
+ * @return Observable, if toggle is active
  */
 export function toggle<T>(
-  toggle$: Observable<boolean>
-): OperatorFunction<T, Observable<T>> {
-  const start$ = toggle$.pipe(filter(match => match === true))
-  const until$ = toggle$.pipe(filter(match => match === false))
-  return windowToggle<T, boolean>(start$, () => until$)
+  project: () => Observable<T>
+): OperatorFunction<boolean, T> {
+  return pipe(
+    switchMap(active => active ? project() : NEVER)
+  )
 }
