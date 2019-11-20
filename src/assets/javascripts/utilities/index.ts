@@ -28,13 +28,13 @@ import { switchMap } from "rxjs/operators"
  * ------------------------------------------------------------------------- */
 
 /**
- * Convert a HTML collection to an array
+ * Convert a collection to an array
  *
- * @template T - HTML element type
+ * @template T - Element type
  *
- * @param collection - HTML collection
+ * @param collection - Collection or node list
  *
- * @return Array of HTML elements
+ * @return Array of elements
  */
 export function toArray<
   T extends HTMLElement
