@@ -21,6 +21,7 @@
  */
 
 export * from "./_"
+export * from "./anchor"
 export * from "./header"
 export * from "./hidden"
 export * from "./main"
