@@ -21,5 +21,6 @@
  */
 
 export * from "./agent"
+export * from "./hidden"
 export * from "./string"
 export * from "./toggle"

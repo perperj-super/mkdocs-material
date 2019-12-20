@@ -32,7 +32,8 @@ import {
   tap
 } from "rxjs/operators"
 
-import { resetHeaderShadow, setHeaderShadow } from "../../../actions"
+import { resetHeaderShadow, setHeaderShadow } from "actions"
+
 import { Main } from "../../main"
 
 /* ----------------------------------------------------------------------------

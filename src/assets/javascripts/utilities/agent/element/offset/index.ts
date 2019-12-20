@@ -23,6 +23,7 @@
 import { Observable, fromEvent, merge } from "rxjs"
 import { map, shareReplay, startWith } from "rxjs/operators"
 
+import { Agent } from "../../_"
 import { ViewportSize } from "../../viewport"
 
 /* ----------------------------------------------------------------------------
@@ -71,16 +72,16 @@ export function getElementOffset(el: HTMLElement): ElementOffset {
 /**
  * Watch element offset
  *
- * @paramel - Element
- * @param options - Options
+ * @param el - Element
+ * @param agent - Agent
  *
  * @return Element offset observable
  */
 export function watchElementOffset(
-  el: HTMLElement, { size$ }: Options
+  el: HTMLElement, { viewport }: Agent
 ): Observable<ElementOffset> {
   const scroll$ = fromEvent(el, "scroll")
-  return merge(scroll$, size$)
+  return merge(scroll$, viewport.size$)
     .pipe(
       map(() => getElementOffset(el)),
       startWith(getElementOffset(el)),

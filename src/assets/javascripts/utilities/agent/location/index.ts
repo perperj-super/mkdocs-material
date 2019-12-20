@@ -60,11 +60,11 @@ export function watchLocation(): Subject<string> {
 }
 
 /**
- * Watch location fragment
+ * Watch location hash
  *
- * @return Location fragment observable
+ * @return Location hash observable
  */
-export function watchLocationFragment(): Observable<string> {
+export function watchLocationHash(): Observable<string> {
   return hashchange$
     .pipe(
       map(() => location.hash),
