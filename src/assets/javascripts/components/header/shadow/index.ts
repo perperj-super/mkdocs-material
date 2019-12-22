@@ -34,7 +34,7 @@ import {
 
 import { resetHeaderShadow, setHeaderShadow } from "actions"
 
-import { Main } from "../../main"
+import { MainState } from "../../main"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -49,7 +49,7 @@ import { Main } from "../../main"
  */
 export function paintHeaderShadow(
   el: HTMLElement
-): MonoTypeOperatorFunction<Main> {
+): MonoTypeOperatorFunction<MainState> {
   return pipe(
     distinctUntilKeyChanged("active"),
 
