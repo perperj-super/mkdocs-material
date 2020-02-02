@@ -23,5 +23,6 @@
 export * from "./anchor"
 export * from "./header"
 export * from "./hidden"
+export * from "./scrolling"
 export * from "./search"
 export * from "./sidebar"
