@@ -21,6 +21,7 @@
  */
 
 export * from "./_"
+export * from "./header"
 export * from "./main"
 export * from "./navigation"
 export * from "./search"
