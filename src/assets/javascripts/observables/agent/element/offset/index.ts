@@ -47,9 +47,9 @@ export interface ElementOffset {
  * ------------------------------------------------------------------------- */
 
 /**
- * Options
+ * Watch options
  */
-interface Options {
+interface WatchOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
 }
 
@@ -82,7 +82,7 @@ export function getElementOffset(el: HTMLElement): ElementOffset {
  * @return Element offset observable
  */
 export function watchElementOffset(
-  el: HTMLElement, { viewport$ }: Options
+  el: HTMLElement, { viewport$ }: WatchOptions
 ): Observable<ElementOffset> {
   const scroll$ = fromEvent(el, "scroll")
   const size$ = viewport$
