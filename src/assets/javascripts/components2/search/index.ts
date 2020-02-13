@@ -20,34 +20,42 @@
  * IN THE SOFTWARE.
  */
 
-import { identity } from "ramda"
-import { Observable, OperatorFunction, pipe } from "rxjs"
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  shareReplay,
-  switchMap
-} from "rxjs/operators"
+import { Observable, OperatorFunction, combineLatest, pipe } from "rxjs"
+import { map, shareReplay, switchMap } from "rxjs/operators"
 
 import { SearchResult } from "modules"
 import {
   SearchQuery,
   Viewport,
-  paintSearchResult,
-  watchElementOffset
+  WorkerHandler,
 } from "observables"
+import { SearchMessage } from "workers"
+
+import { useComponent } from "../_"
+import { mountSearchQuery } from "./query"
+import { mountSearchReset } from "./reset"
+import { mountSearchResult } from "./result"
+
+/* ----------------------------------------------------------------------------
+ * Types
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Search
+ */
+export interface Search {
+  query: SearchQuery                   /* Search query */
+  result: SearchResult[]               /* Search result list */
+}
 
 /* ----------------------------------------------------------------------------
  * Helper types
  * ------------------------------------------------------------------------- */
 
 /**
- * Options
+ * Mount options
  */
-interface Options {
-  query$: Observable<SearchQuery>      /* Search query observable */
-  result$: Observable<SearchResult[]>  /* Search result observable */
+interface MountOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
 }
 
@@ -56,35 +64,43 @@ interface Options {
  * ------------------------------------------------------------------------- */
 
 /**
- * Mount search result from source observable
+ * Mount search from source observable
  *
+ * @param handler - Worker handler
  * @param options - Options
  *
- * @return Operator function
+ * @return Search observable
  */
-export function mountSearchResult(
-  { query$, result$, viewport$ }: Options
-): OperatorFunction<HTMLElement, SearchResult[]> {
+export function mountSearch(
+  handler: WorkerHandler<SearchMessage>, { viewport$ }: MountOptions
+): OperatorFunction<HTMLElement, Search> {
   return pipe(
-    switchMap(el => {
-      const container = el.parentElement!
+    switchMap(() => {
 
-      /* Compute whether there are more search results to fetch */
-      const fetch$ = watchElementOffset(container, { viewport$ })
+      /* Mount search query */
+      const query$ = useComponent<HTMLInputElement>("search-query")
         .pipe(
-          map(({ y }) => {
-            return y >= container.scrollHeight - container.offsetHeight - 16
-          }),
-          distinctUntilChanged(),
-          filter(identity)
+          mountSearchQuery(handler)
         )
 
-      /* Paint search results */
-      return result$
+      /* Mount search reset */
+      const reset$ = useComponent<HTMLInputElement>("search-reset")
         .pipe(
-          paintSearchResult(el, { query$, fetch$ })
+          mountSearchReset()
         )
-    }),
-    shareReplay(1)
+
+      /* Mount search result */
+      const result$ = useComponent("search-result")
+        .pipe(
+          mountSearchResult(handler, { viewport$, query$ })
+        )
+
+      /* Combine into a single hot observable */
+      return combineLatest([query$, result$, reset$])
+        .pipe(
+          map(([query, result]) => ({ query, result })),
+          shareReplay(1)
+        )
+    })
   )
 }
