@@ -36,15 +36,6 @@ export interface Key {
 }
 
 /* ----------------------------------------------------------------------------
- * Data
- * ------------------------------------------------------------------------- */
-
-/**
- * Observable for window keyboard events
- */
-const keydown$ = fromEvent<KeyboardEvent>(window, "keydown")
-
-/* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
 
@@ -78,7 +69,7 @@ export function mayReceiveKeyboardEvents(el: HTMLElement) {
  * @return Keyboard observable
  */
 export function watchKeyboard(): Observable<Key> {
-  return keydown$
+  return fromEvent<KeyboardEvent>(window, "keydown")
     .pipe(
       filter(ev => !(ev.shiftKey || ev.metaKey || ev.ctrlKey)),
       map(ev => ({

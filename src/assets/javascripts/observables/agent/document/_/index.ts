@@ -24,15 +24,6 @@ import { Observable, fromEvent } from "rxjs"
 import { mapTo, shareReplay } from "rxjs/operators"
 
 /* ----------------------------------------------------------------------------
- * Data
- * ------------------------------------------------------------------------- */
-
-/**
- * Observable for document load events
- */
-const load$ = fromEvent(document, "DOMContentLoaded")
-
-/* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
 
@@ -42,7 +33,7 @@ const load$ = fromEvent(document, "DOMContentLoaded")
  * @return Document observable
  */
 export function watchDocument(): Observable<Document> {
-  return load$
+  return fromEvent(document, "DOMContentLoaded")
     .pipe(
       mapTo(document),
       shareReplay(1)
