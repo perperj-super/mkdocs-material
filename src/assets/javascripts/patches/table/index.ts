@@ -51,11 +51,11 @@ interface MountOptions {
 export function patchTables(
   { document$ }: MountOptions
 ): Observable<HTMLTableElement[]> {
+  const placeholder = document.createElement("table")
   return document$
     .pipe(
       map(() => getElements<HTMLTableElement>("table:not([class])")),
       tap(els => {
-        const placeholder = document.createElement("table")
         for (const el of els) {
           el.replaceWith(placeholder)
           placeholder.replaceWith(renderTable(el))
