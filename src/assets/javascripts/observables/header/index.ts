@@ -22,3 +22,4 @@
 
 export * from "./_"
 export * from "./shadow"
+export * from "./title"

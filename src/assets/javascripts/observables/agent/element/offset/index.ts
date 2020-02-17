@@ -21,14 +21,7 @@
  */
 
 import { Observable, fromEvent, merge } from "rxjs"
-import {
-  distinctUntilKeyChanged,
-  map,
-  shareReplay,
-  startWith
-} from "rxjs/operators"
-
-import { Viewport } from "../../viewport"
+import { map, shareReplay, startWith } from "rxjs/operators"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -40,17 +33,6 @@ import { Viewport } from "../../viewport"
 export interface ElementOffset {
   x: number                            /* Horizontal offset */
   y: number                            /* Vertical offset */
-}
-
-/* ----------------------------------------------------------------------------
- * Helper types
- * ------------------------------------------------------------------------- */
-
-/**
- * Watch options
- */
-interface WatchOptions {
-  viewport$: Observable<Viewport>      /* Viewport observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -77,21 +59,16 @@ export function getElementOffset(el: HTMLElement): ElementOffset {
  * Watch element offset
  *
  * @param el - Element
- * @param options - Options
  *
  * @return Element offset observable
  */
 export function watchElementOffset(
-  el: HTMLElement, { viewport$ }: WatchOptions
+  el: HTMLElement
 ): Observable<ElementOffset> {
-  const scroll$ = fromEvent(el, "scroll")
-  const size$ = viewport$
-    .pipe(
-      distinctUntilKeyChanged("size")
-    )
-
-  /* Merge into a single hot observable */
-  return merge(scroll$, size$)
+  return merge(
+    fromEvent<UIEvent>(el, "scroll"),
+    fromEvent<UIEvent>(window, "resize")
+  )
     .pipe(
       map(() => getElementOffset(el)),
       startWith(getElementOffset(el)),
