@@ -21,6 +21,7 @@
  */
 
 export * from "./clipboard"
+export * from "./dialog"
 export * from "./search"
 export * from "./source"
 export * from "./table"
