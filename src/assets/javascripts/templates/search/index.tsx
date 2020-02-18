@@ -69,7 +69,7 @@ export function renderSearchResult(
   })
   return (
     <li class={css.item}>
-      {...children}
+      {children}
     </li>
   )
 }

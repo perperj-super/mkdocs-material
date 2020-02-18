@@ -20,6 +20,7 @@
  * IN THE SOFTWARE.
  */
 
+import { SourceFacts } from "integrations/source"
 import { h } from "utilities"
 
 /* ----------------------------------------------------------------------------
@@ -46,11 +47,12 @@ const css = {
  * @return Element
  */
 export function renderSource(
-  facts: any // TODO: add typings
+  facts: SourceFacts
 ): HTMLElement {
+  const children = facts.map(fact => <li class={css.fact}>{fact}</li>)
   return (
     <ul class={css.facts}>
-      {facts.map((fact: any) => <li class={css.fact}>{fact}</li>)}
+      {children}
     </ul>
   )
 }
