@@ -52,7 +52,7 @@ export function getViewportOffset(): ViewportOffset {
 }
 
 /**
- * Retrieve viewport offset
+ * Set viewport offset
  *
  * @param offset - Viewport offset
  */
