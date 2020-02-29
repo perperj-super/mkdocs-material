@@ -20,7 +20,7 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, fromEvent, merge } from "rxjs"
+import { NEVER, Observable, fromEvent, iif, merge } from "rxjs"
 import { map, mapTo, shareReplay, switchMap } from "rxjs/operators"
 
 import { getElements } from "observables"
@@ -34,6 +34,19 @@ import { getElements } from "observables"
  */
 interface MountOptions {
   document$: Observable<Document>      /* Document observable */
+}
+
+/* ----------------------------------------------------------------------------
+ * Helper functions
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Check whetehr the given device is an Apple device
+ *
+ * @return Test result
+ */
+function isAppleDevice(): boolean {
+  return /(iPad|iPhone|iPod)/.test(navigator.userAgent)
 }
 
 /* ----------------------------------------------------------------------------
@@ -67,7 +80,7 @@ export function patchScrollfix(
   })
 
   /* Patch overflow scrolling on touch start */
-  els$
+  iif(isAppleDevice, els$, NEVER)
     .pipe(
       switchMap(els => merge(...els.map(el => (
         fromEvent(el, "touchstart")
