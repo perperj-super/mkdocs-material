@@ -21,4 +21,6 @@
  */
 
 export * from "./_"
-export * from "./title"
+export * from "./apply"
+export * from "./paint"
+export * from "./watch"
