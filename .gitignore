@@ -27,10 +27,6 @@ node_modules
 __pycache__
 venv
 
-# Coverage reports
-.nyc_output
-coverage
-
 # Build files
 build
 MANIFEST
