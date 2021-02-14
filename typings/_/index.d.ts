@@ -37,5 +37,14 @@ export interface GlobalSearchConfig {
 /* ------------------------------------------------------------------------- */
 
 declare global {
+
+  /**
+   * GLobal search configuration
+   */
   var __search: GlobalSearchConfig | undefined
+
+  /**
+   * Google Analytics
+   */
+  function ga(...args: string[]): void
 }

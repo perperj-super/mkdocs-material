@@ -21,6 +21,7 @@
  */
 
 import { translation } from "~/_"
+import { round } from "~/utilities"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -49,7 +50,7 @@ export function setSearchResultMeta(
 
     /* Multiple result */
     default:
-      el.textContent = translation("search.result.other", value)
+      el.textContent = translation("search.result.other", round(value))
   }
 }
 

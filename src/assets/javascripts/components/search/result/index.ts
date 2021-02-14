@@ -20,14 +20,25 @@
  * IN THE SOFTWARE.
  */
 
-import { Observable, Subject } from "rxjs"
 import {
+  Observable,
+  Subject,
+  animationFrameScheduler,
+  merge,
+  of
+} from "rxjs"
+import {
+  bufferCount,
+  distinctUntilKeyChanged,
   filter,
   finalize,
   map,
+  observeOn,
   startWith,
+  switchMap,
   tap,
-  withLatestFrom
+  withLatestFrom,
+  zipWith
 } from "rxjs/operators"
 
 import {
@@ -36,7 +47,10 @@ import {
   resetSearchResultMeta,
   setSearchResultMeta
 } from "~/actions"
-import { getElementOrThrow } from "~/browser"
+import {
+  getElementOrThrow,
+  watchElementThreshold
+} from "~/browser"
 import {
   SearchResult as SearchResultData,
   SearchWorker,
@@ -76,6 +90,9 @@ interface MountOptions {
 /**
  * Mount search result list
  *
+ * This function will perform a lazy rendering of the search results, depending
+ * on the vertical offset of the search result container.
+ *
  * @param el - Search result list element
  * @param worker - Search worker
  * @param options - Options
@@ -86,11 +103,16 @@ export function mountSearchResult(
   el: HTMLElement, { rx$ }: SearchWorker, { query$ }: MountOptions
 ): Observable<Component<SearchResult>> {
   const internal$ = new Subject<SearchResult>()
+  const boundary$ = watchElementThreshold(el.parentElement!)
+    .pipe(
+      filter(Boolean)
+    )
 
   /* Update search result metadata */
   const meta = getElementOrThrow(":scope > :first-child", el)
   internal$
     .pipe(
+      observeOn(animationFrameScheduler),
       withLatestFrom(query$)
     )
       .subscribe(([{ data }, { value }]) => {
@@ -103,16 +125,22 @@ export function mountSearchResult(
   /* Update search result list */
   const list = getElementOrThrow(":scope > :last-child", el)
   internal$
-    .subscribe(({ data }) => {
-      resetSearchResultList(list)
-
-      /* Compute thresholds and search results */
-      const thresholds = [...data.map(([best]) => best.score), 0]
-      for (let index = 0; index < data.length; index++)
-        addToSearchResultList(list, renderSearchResult(
-          data[index++], thresholds[index]
-        ))
-    })
+    .pipe(
+      observeOn(animationFrameScheduler),
+      tap(() => resetSearchResultList(list)),
+      switchMap(({ data }) => merge(
+        of(...data.slice(0, 10)),
+        of(...data.slice(10))
+          .pipe(
+            bufferCount(4),
+            zipWith(boundary$),
+            switchMap(([chunk]) => of(...chunk))
+          )
+      ))
+    )
+      .subscribe(result => {
+        addToSearchResultList(list, renderSearchResult(result))
+      })
 
   /* Filter search result list */
   const result$ = rx$
