@@ -70,6 +70,7 @@ declare global {
     tablet$: Observable<boolean>       /* Tablet breakpoint observable */
     screen$: Observable<boolean>       /* Screen breakpoint observable */
     print$: Observable<void>           /* Print mode observable */
+    alert$: Subject<string>            /* Alert subject */
     component$: Observable<Component>  /* Component observable */
   }
 }
