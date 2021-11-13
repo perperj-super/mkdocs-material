@@ -21,7 +21,7 @@
 -->
 
 <!-- Social links in footer -->
-<div class="md-footer-social">
+<div class="md-social">
   {% for social in config.extra.social %}
     {% set title = social.name %}
     {% if not title and "//" in social.link %}
@@ -32,7 +32,7 @@
       href="{{ social.link }}"
       target="_blank" rel="noopener"
       title="{{ title | e }}"
-      class="md-footer-social__link"
+      class="md-social__link"
     >
       {% include ".icons/" ~ social.icon ~ ".svg" %}
     </a>
