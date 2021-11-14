@@ -23,8 +23,7 @@
 import {
   ReplaySubject,
   Subject,
-  fromEvent,
-  mapTo
+  fromEvent
 } from "rxjs"
 
 /* ----------------------------------------------------------------------------
@@ -40,12 +39,9 @@ import {
  * @returns Document subject
  */
 export function watchDocument(): Subject<Document> {
-  const document$ = new ReplaySubject<Document>()
-  fromEvent(document, "DOMContentLoaded")
-    .pipe(
-      mapTo(document)
-    )
-      .subscribe(document$)
+  const document$ = new ReplaySubject<Document>(1)
+  fromEvent(document, "DOMContentLoaded", { once: true })
+    .subscribe(() => document$.next(document))
 
   /* Return document */
   return document$
