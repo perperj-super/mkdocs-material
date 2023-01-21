@@ -281,6 +281,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://squidfunk.github.io/mkdocs-material/setup/dependencies/image-processing/</loc>
+         <lastmod>2023-01-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://squidfunk.github.io/mkdocs-material/setup/extensions/</loc>
          <lastmod>2023-01-21</lastmod>
          <changefreq>daily</changefreq>
