@@ -81,17 +81,32 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://squidfunk.github.io/mkdocs-material/bug-report/</loc>
-         <lastmod>2023-01-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://squidfunk.github.io/mkdocs-material/bug-report/reproduction/</loc>
-         <lastmod>2023-01-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://squidfunk.github.io/mkdocs-material/changelog/</loc>
+         <lastmod>2023-01-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://squidfunk.github.io/mkdocs-material/contributing/</loc>
+         <lastmod>2023-01-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://squidfunk.github.io/mkdocs-material/contributing/reporting-a-bug/</loc>
+         <lastmod>2023-01-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://squidfunk.github.io/mkdocs-material/contributing/reporting-a-docs-issue/</loc>
+         <lastmod>2023-01-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://squidfunk.github.io/mkdocs-material/contributing/requesting-a-change/</loc>
+         <lastmod>2023-01-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://squidfunk.github.io/mkdocs-material/guides/creating-a-reproduction/</loc>
          <lastmod>2023-01-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
